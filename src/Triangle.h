@@ -9,7 +9,6 @@
 #include <math.h>
 using namespace std;
 
-void triangle(float &area, float &perimeter);
+void triangle(float& area, float& perimeter);
 
-
-#endif //GEOMETRY2_TRIANGLE_H
+#endif // GEOMETRY2_TRIANGLE_H

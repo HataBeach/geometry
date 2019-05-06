@@ -1,12 +1,12 @@
 #include <iostream>
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
 using namespace std;
 
 float x, y, r;
 
-void circle(float &area, float &perimeter)
+void circle(float& area, float& perimeter)
 {
     cout << "write x, y and radius: ";
     cin >> x;

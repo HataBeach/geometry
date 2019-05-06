@@ -2,14 +2,11 @@
 #define GEOMETRY2_CIRCLE_H
 
 #include <iostream>
-#include <stdio.h>
 #include <math.h>
-
-
+#include <stdio.h>
 
 using namespace std;
 
+void circle(float& area, float& perimeter);
 
-    void circle(float &area, float &perimeter);
-
-#endif //GEOMETRY2_CIRCLE_H
+#endif // GEOMETRY2_CIRCLE_H
