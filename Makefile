@@ -5,7 +5,7 @@
 # Compiler options
 CC=g++
 CFLAGS=-c -Wall
-EXECUTABLE_NAME=chessviz
+EXECUTABLE_NAME=geometry
 
 # Folders
 SRC=src
