@@ -24,6 +24,7 @@ build: create_directories create_executable
 	@echo "Build successful!"
 
 create_executable: create_objects
+	@mkdir build
 	@$(CC) $(OBJECT_FILES) -o $(BIN)/$(EXECUTABLE_NAME)
 	@echo "Created executable."
 
