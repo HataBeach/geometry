@@ -1,7 +1,7 @@
 ##########################################
 #           Editable options             #
 ##########################################
-
+.PHONY: clean
 # Compiler options
 CC=g++
 CFLAGS=-c -Wall
@@ -39,7 +39,9 @@ create_directories:
 	@$(CC) -c $(SRC)/$@ -o $(OBJ)/$(patsubst %.cpp,%.o,$@)
 
 clean:
+	@rm -r -f $(OBJ)
 	@rm -r -f $(BIN)
+
 
 all: build
 
