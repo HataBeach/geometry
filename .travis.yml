@@ -1,16 +1,10 @@
-sudo: false
+language: C++
+
 dist: xenial
-language: cpp
-os:
-  - linux
-compiler:
-  - gcc
-install:
-  # /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
-  - if [[ $CXX = g++ ]]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
 
 script:
-  - git ls-files src/ | xargs clang-format -i && git diff --exit-code
   - make
+  - git ls-files src/ | xargs clang-format -i && git diff --exit-code
   - make test
-
+  - ./bin/Test
+  - make clean
