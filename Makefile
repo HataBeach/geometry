@@ -13,7 +13,7 @@ BIN=build
 OBJ=bin
 
 # Files
-SOURCE_FILES= Circle.cpp Triangle.cpp main.cpp
+SOURCE_FILES= Circle.cpp Triangle.cpp Pars.cpp main.cpp
 
 ##########################################
 #    Don't touch anything below this     #
@@ -55,7 +55,7 @@ GTEST_LIB_DIR = thirdparty/googletest
 
 USER_DIR = src
 
-USER_DIR_O = build
+USER_DIR_O = bin
 
 USER_DIR_b = bin
 
@@ -72,10 +72,11 @@ GTEST_HEADERS = $(GTEST_LIB_DIR)/include/gtest/*.h \
 
 test: $(TESTS)
 
-build/Pars.o: src/Pars.cpp
-	g++ -Wall -Werror -c src/Pars.cpp -o build/Pars.o
+$(USER_DIR_O)/Pars.o: src/Pars.cpp
+	g++ -Wall -Werror -c src/Pars.cpp -o $(USER_DIR_O)/Pars.o
 
 $(TESTS) : $(USER_DIR_O)/Pars.o $(USER_DIR_O)/Pars_unittest.o
+	mkdir bin build
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR)/lib -lgtest_main -lpthread $^ -o $(USER_DIR_b)/Test
 
 $(USER_DIR_O)/Pars_unittest.o : test/Pars_unittest.cpp \
