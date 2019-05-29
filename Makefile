@@ -4,7 +4,7 @@
 .PHONY: clean
 # Compiler options
 CC=g++
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall -std=c++11
 EXECUTABLE_NAME=geometry
 
 # Folders
