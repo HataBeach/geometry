@@ -1,4 +1,5 @@
 all: bin/Geometry
+	@mkdir bin build build/src build/test
 
 bin/Geometry: build/src/main.o build/src/Figure.o build/src/Output.o build/src/Pars.o
 	g++ -Wall -Werror build/src/main.o build/src/Figure.o build/src/Output.o build/src/Pars.o -o bin/Geometry -lm
