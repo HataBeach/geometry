@@ -24,7 +24,6 @@ build: create_directories create_executable
 	@echo "Build successful!"
 
 create_executable: create_objects
-	@mkdir build
 	@$(CC) $(OBJECT_FILES) -o $(BIN)/$(EXECUTABLE_NAME)
 	@echo "Created executable."
 
@@ -32,7 +31,7 @@ create_objects: $(SOURCE_FILES)
 	@echo "Created objects."
 
 create_directories:
-	@mkdir -p $(OBJ)
+	@mkdir -p $(OBJ) $(BIN)
 
 %.cpp:
 	@echo "Compiling "$@
@@ -75,7 +74,7 @@ test: $(TESTS)
 
 $(TESTS) : $(USER_DIR_O)/Pars.o $(USER_DIR_O)/Pars_unittest.o
 	mkdir bin build
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR)/lib -lgtest_main -lpthread $^ -o $(USER_DIR_b)/Test
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR)/lib -lgtest_main -lpthread $^ -o build/test
 
 $(USER_DIR_O)/Pars_unittest.o : test/Pars_unittest.cpp \
                      $(USER_DIR)/Pars.h $(GTEST_HEADERS)
