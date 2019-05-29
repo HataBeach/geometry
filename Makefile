@@ -1,60 +1,27 @@
-##########################################
-#           Editable options             #
-##########################################
-.PHONY: clean
-# Compiler options
-CC=g++ -std=c++11
-CFLAGS=-c -Wall -std=c++11
-EXECUTABLE_NAME=geometry
+all: bin/Geometry
 
-# Folders
-SRC=src
-BIN=build
-OBJ=bin
+bin/Geometry: build/src/main.o build/src/Figure.o build/src/Output.o build/src/Pars.o
+	g++ -Wall -Werror build/src/main.o build/src/Figure.o build/src/Output.o build/src/Pars.o -o bin/Geometry -lm
 
-# Files
-SOURCE_FILES= Circle.cpp Triangle.cpp Pars.cpp main.cpp
+build/src/main.o: src/main.cpp
+	g++ -Wall -Werror -c src/main.cpp -o build/src/main.o
 
-##########################################
-#    Don't touch anything below this     #
-##########################################
-OBJECT_FILES=$(addprefix $(OBJ)/, $(SOURCE_FILES:.cpp=.o))
+build/src/Figure.o: src/Figure.cpp
+	g++ -Wall -Werror -c src/Figure.cpp -o build/src/Figure.o
 
-build: create_directories create_executable
-	@echo "Build successful!"
+build/src/Output.o: src/Output.cpp
+	g++ -Wall -Werror -c src/Output.cpp -o build/src/Output.o
 
-create_executable: create_objects
-	@$(CC) $(OBJECT_FILES) -o $(BIN)/$(EXECUTABLE_NAME)
-	@echo "Created executable."
+build/src/Pars.o: src/Pars.cpp
+	g++ -Wall -Werror -c src/Pars.cpp -o build/src/Pars.o
 
-create_objects: $(SOURCE_FILES)
-	@echo "Created objects."
-
-create_directories:
-	@mkdir -p $(OBJ) $(BIN)
-
-%.cpp:
-	@echo "Compiling "$@
-	@$(CC) -c $(SRC)/$@ -o $(OBJ)/$(patsubst %.cpp,%.o,$@)
-
-clean:
-	@rm -r -f $(OBJ)
-	@rm -r -f $(BIN)
-
-
-all: build
-
-run: build
-	@echo ""
-	@echo "-------------"
-	@echo ""
-	@./$(BIN)/$(EXECUTABLE_NAME)
+.PHONY: clean test
 
 GTEST_LIB_DIR = thirdparty/googletest
 
 USER_DIR = src
 
-USER_DIR_O = bin
+USER_DIR_O = build/test
 
 USER_DIR_b = bin
 
@@ -71,13 +38,16 @@ GTEST_HEADERS = $(GTEST_LIB_DIR)/include/gtest/*.h \
 
 test: $(TESTS)
 
-
 $(TESTS) : $(USER_DIR_O)/Pars.o $(USER_DIR_O)/Pars_unittest.o
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR)/lib -lgtest_main -lpthread $^ -o build/test
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR)/lib -lgtest_main -lpthread $^ -o $(USER_DIR_b)/Test
 
 $(USER_DIR_O)/Pars_unittest.o : test/Pars_unittest.cpp \
-                     $(USER_DIR)/Pars.h $(GTEST_HEADERS)
+                     $(USER_DIR)/Pars.hpp $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c test/Pars_unittest.cpp -o $@
 
-$(USER_DIR_O)/Pars.o : $(USER_DIR)/Pars.cpp $(USER_DIR)/Pars.h $(GTEST_HEADERS)
+$(USER_DIR_O)/Pars.o : $(USER_DIR)/Pars.cpp $(USER_DIR)/Pars.hpp $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Pars.cpp -o $@
+
+
+clean:
+	rm -rf build/src/*.o build/test/*.o bin/Geometry bin/Test
