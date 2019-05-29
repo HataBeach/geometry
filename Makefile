@@ -3,7 +3,7 @@
 ##########################################
 .PHONY: clean
 # Compiler options
-CC=g++
+CC=g++ -std=c++11
 CFLAGS=-c -Wall -std=c++11
 EXECUTABLE_NAME=geometry
 
@@ -72,16 +72,14 @@ GTEST_HEADERS = $(GTEST_LIB_DIR)/include/gtest/*.h \
 
 test: $(TESTS)
 
-$(USER_DIR_O)/Pars.o: src/Pars.cpp
-	g++ -Wall -Werror -c src/Pars.cpp -o $(USER_DIR_O)/Pars.o
 
 $(TESTS) : $(USER_DIR_O)/Pars.o $(USER_DIR_O)/Pars_unittest.o
 	mkdir bin build
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR)/lib -lgtest_main -lpthread $^ -o $(USER_DIR_b)/Test
 
 $(USER_DIR_O)/Pars_unittest.o : test/Pars_unittest.cpp \
-                     $(USER_DIR)/Pars.hpp $(GTEST_HEADERS)
+                     $(USER_DIR)/Pars.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c test/Pars_unittest.cpp -o $@
 
-$(USER_DIR_O)/Pars.o : $(USER_DIR)/Pars.cpp $(USER_DIR)/Pars.hpp $(GTEST_HEADERS)
+$(USER_DIR_O)/Pars.o : $(USER_DIR)/Pars.cpp $(USER_DIR)/Pars.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Pars.cpp -o $@
