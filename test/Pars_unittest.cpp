@@ -1,4 +1,4 @@
-#include "../src/Pars.h"
+#include "../src/Pars.hpp"
 #include "gtest/gtest.h"
 #include <limits.h>
 
