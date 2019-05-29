@@ -73,7 +73,6 @@ test: $(TESTS)
 
 
 $(TESTS) : $(USER_DIR_O)/Pars.o $(USER_DIR_O)/Pars_unittest.o
-	mkdir bin build
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR)/lib -lgtest_main -lpthread $^ -o build/test
 
 $(USER_DIR_O)/Pars_unittest.o : test/Pars_unittest.cpp \
