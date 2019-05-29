@@ -1,21 +1,32 @@
-#include "Circle.h"
-#include "Triangle.h"
-#include <iostream>
-#include <stdio.h>
-#include <string.h>
-using namespace std;
-string figure;
-float area = 0, perimeter = 0;
+#include "Output.hpp"
+#include "Pars.hpp"
+int i = 0;
+const int k = 3;
+int a;
+int b;
+int c;
+string namef;
+
 int main()
 {
-    cout << "wtire figure: ";
-    cin >> figure;
-
-    if (!strcmp(figure.c_str(), "circle")) {
-        circle(area, perimeter);
-    } else if (!strcmp(figure.c_str(), "triangle")) {
-        triangle(area, perimeter);
+    figure circle[k];
+    circle[0].setNZero();
+    string str;
+    for (int j = 0; j < k; j++) {
+        getline(cin, str);
+        namef = partStr(str);
+        if (namef == "circle") {
+            if (str[i] == '(')
+                i++;
+            a = partStr2(str);
+            b = partStr2(str);
+            c = partStr2(str);
+            circle[j].setName(namef);
+            circle[j].setCoord(a, b, c);
+            circle[j].setN(j + 1);
+        } else
+            j--;
+        i = 0;
     }
-    cout << "\t perimetr: " << perimeter << endl;
-    cout << "\t area: " << area << endl;
+    outputF(circle, k);
 }

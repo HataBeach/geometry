@@ -1,4 +1,4 @@
-#include "Pars.h"
+#include "Pars.hpp"
 
 void skipspace(string a)
 {
@@ -8,16 +8,30 @@ void skipspace(string a)
 
 string partStr(string a)
 {
-    return a[0] == 'a' ? "circle" : "sdcdf";
+    string strt;
+    while (a[i] != '(') {
+        if (a[i] == '\0')
+            break;
+        i++;
+    }
+    strt.resize(i);
+    copy(a.begin(), a.begin() + i, strt.begin());
+
+    return strt;
 }
 
 int partStr2(string a)
 {
-    if (i == 1)
-        return 1;
-    if (i == 2)
-        return 4;
-    if (i == 3)
-        return 5;
-    return 0;
+    int p = strlen(a.c_str());
+    string strt = a;
+    strt.resize(p);
+    strt = strt.substr(i);
+    int k = atoi(strt.c_str());
+    while (isdigit(a[i])) {
+        i++;
+    }
+    while (isdigit(a[i]) == 0 && i < p) {
+        i++;
+    }
+    return k;
 }
