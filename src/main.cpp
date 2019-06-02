@@ -7,7 +7,6 @@ int b;
 int c;
 string namef;
 
-
 int main()
 {
     figure circle[k];
